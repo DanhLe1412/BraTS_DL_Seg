@@ -1,0 +1,1 @@
+from ttbrats.core.transforms import TRANSFORM_REGISTRY
