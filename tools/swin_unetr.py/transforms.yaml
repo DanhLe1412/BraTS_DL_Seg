@@ -1,0 +1,24 @@
+train:
+  name: AlbCompose
+  args:
+    transforms:
+      - name: AlbResize
+        args:
+          height: 336
+          width: 336
+      - name: AlbNormalize
+      - name: AlbToTensorV2
+        args:
+          p: 1.0
+val:
+  name: AlbCompose
+  args:
+    transforms:
+      - name: AlbResize
+        args:
+          height: 336
+          width: 336
+      - name: AlbNormalize
+      - name: AlbToTensorV2
+        args:
+          p: 1.0

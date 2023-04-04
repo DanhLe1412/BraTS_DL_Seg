@@ -1,0 +1,54 @@
+learner:
+  name: SemanticLearner
+  args:
+device:
+  name: get_device
+  args:
+    default: cuda
+model:
+  name: deeplabv3_resnet50
+  args:
+    pretrained: False
+    num_classes: 30
+criterion:
+  name: CEwithstat
+  args:
+optimizer:
+  name: Adam
+  args:
+    lr: 0.0001
+metric:
+  - name: PixelAccuracy
+    args:
+scheduler:
+  name: StepLR
+  args:
+    step_size: 3
+    gamma: 0.2
+    last_epoch: -1
+data: # instruction here
+  splits:
+    train: 0.6
+    val: 0.4
+  dataset:
+    name: LyftDataset.from_folder
+    args:
+      sample: True
+      root: "./data"
+      test: True
+      mask_folder_name: SemanticSegmentation
+      image_folder_name: RGB
+      extension: png
+  loader:
+    train:
+      name: DataLoader
+      args:
+        batch_size: 2
+        shuffle: True
+        drop_last: True
+    val:
+      name: DataLoader
+      args:
+        batch_size: 2
+        shuffle: False
+        drop_last: False
